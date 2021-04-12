@@ -8,12 +8,17 @@
                 <mat-error>Please provide a valid user name</mat-error>
             </mat-form-field><br />
             <mat-form-field class="full-width-input">
-                <input matInput type="password" placeholder="Password" name="password" required [(ngModel)]="registerUser.password">
+                <input matInput type="password" placeholder="Password" name="password" required #modelPassword="ngModel" [(ngModel)]="registerUser.password">
                 <mat-error>Please provide a valid password</mat-error>
             </mat-form-field><br />
             <mat-form-field class="full-width-input">
-                <input matInput type="password" placeholder="Password" name="password2" required [(ngModel)]="registerUser.password2">
+                <input matInput type="password" ngValidateEqual="password" placeholder="Password2" name="password2" required #modelPassword2="ngModel" [(ngModel)]="registerUser.password2">
                 <mat-error>Please provide a valid password</mat-error>
+                <div *ngIf="(modelPassword2.dirty || modelPassword2.touched) && modelPassword2.invalid">
+                    <p class="warning-text" *ngIf="modelPassword2.hasError('notEqual') && modelPassword.valid">
+                      Passwords Don't Match
+                    </p>
+                </div>
             </mat-form-field><br />
             <button mat-raised-button color="primary" type="submit">
                 <mat-icon>account_box</mat-icon>
